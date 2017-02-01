@@ -28,5 +28,27 @@ function qubit_help($route_name, RouteMatchInterface $route_match) {
  */
 function qubit_page_attachments(array &$attachments) {
   // Add to every page.
-  $attachments['#attached']['library'][] = 'qubit/qubit';
+  // Not as a library as we need to change the name of the js for each domain file.
+  // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page
+
+  $account_id = 123791;
+  $domain_id = 1664784;
+
+  $attachments['#attached']['html_head'][] = [
+    // The data.
+    [
+      '#type' => 'html_tag',
+      // The HTML tag to add, in this case a  tag.
+      '#tag' => 'script',
+      // Set attributes like src to load a file.
+      '#attributes' => [
+        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-' . $account_id . '-' . $domain_id . '.js',
+        'defer' => TRUE,
+        'async' => TRUE,
+      ],
+    ],
+    // A key, to make it possible to recognize this HTML element when altering.
+    'qubit_opentag',
+  ];
+
 }

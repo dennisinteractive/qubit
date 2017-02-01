@@ -2,4 +2,4 @@ name: Qubit
 type: module
 description: Qubit tracking integration
 core: 8.x
-package: Libraries
+package: Statistics

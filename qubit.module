@@ -31,7 +31,11 @@ function qubit_page_attachments(array &$attachments) {
   // Not as a library as we need to change the name of the js for each domain file.
   // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page
 
-    $customer_id = 123791;
+  $config = \Drupal::config('qubit.settings');
+  $customer_id = $config->get('customer_id');
+  //var_dump($config); exit;
+
+    //$customer_id = 123791;
   $domain_id = 1664784;
 
   $attachments['#attached']['html_head'][] = [

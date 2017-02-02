@@ -17,7 +17,7 @@ class QubitSettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'qubit.qubitsettings',
+      'qubit.settings',
     ];
   }
 
@@ -32,7 +32,7 @@ class QubitSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('qubit.qubitsettings');
+    $config = $this->config('qubit.settings');
     $form['customer_id'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Customer Id'),
@@ -53,7 +53,7 @@ class QubitSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('qubit.qubitsettings')
+    $this->config('qubit.settings')
       ->set('customer_id', $form_state->getValue('customer_id'))
       ->save();
 

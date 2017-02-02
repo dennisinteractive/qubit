@@ -1,5 +1,5 @@
 {
-  "name": "dennis/qubit_lite",
+  "name": "dennisdigital/qubit_lite",
   "type": "drupal-module",
   "description": "A small iframe version of the Qubit tracking integration",
   "keywords": ["Drupal", "Qubit"],

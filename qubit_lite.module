@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains qubit.module.
+ * Contains qubit_lite.module.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -10,10 +10,10 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function qubit_help($route_name, RouteMatchInterface $route_match) {
+function qubit_lite_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the qubit module.
-    case 'help.page.qubit':
+    // Main module help for the qubit_lite module.
+    case 'help.page.qubit_lite':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Qubit tracking integration') . '</p>';
@@ -26,17 +26,14 @@ function qubit_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_page_attachments().
  */
-function qubit_page_attachments(array &$attachments) {
+function qubit_lite_page_attachments(array &$attachments) {
   // Add to every page.
   // Not as a library as we need to change the name of the js for each domain file.
   // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page
 
-  $config = \Drupal::config('qubit.settings');
+  $config = \Drupal::config('qubit_lite.settings');
   $customer_id = $config->get('customer_id');
-  //var_dump($config); exit;
-
-    //$customer_id = 123791;
-  $domain_id = 1664784;
+  $site_id = $config->get('site_id');
 
   $attachments['#attached']['html_head'][] = [
     // The data.
@@ -46,7 +43,7 @@ function qubit_page_attachments(array &$attachments) {
       '#tag' => 'script',
       // Set attributes like src to load a file.
       '#attributes' => [
-        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-' . $customer_id . '-' . $domain_id . '.js',
+        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-' . $customer_id . '-' . $site_id . '.js',
         'defer' => TRUE,
         'async' => TRUE,
       ],

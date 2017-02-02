@@ -1,7 +1,0 @@
-qubit.qubit_settings_form:
-  title: 'Qubit Settings'
-  route_name: qubit.qubit_settings_form
-  description: 'Settings for Qubit'
-  parent: system.admin_config_system
-  weight: 99
-

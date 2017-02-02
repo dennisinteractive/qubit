@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\qubit\Form;
+namespace Drupal\qubit_lite\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,14 +10,14 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @package Drupal\qubit\Form
  */
-class QubitSettingsForm extends ConfigFormBase {
+class QubitLiteSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
     return [
-      'qubit.settings',
+      'qubit_lite.settings',
     ];
   }
 
@@ -25,14 +25,14 @@ class QubitSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'qubit_settings_form';
+    return 'qubit_lite_settings_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('qubit.settings');
+    $config = $this->config('qubit_lite.settings');
     $form['customer_id'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Customer Id'),
@@ -53,7 +53,7 @@ class QubitSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('qubit.settings')
+    $this->config('qubit_lite.settings')
       ->set('customer_id', $form_state->getValue('customer_id'))
       ->save();
 

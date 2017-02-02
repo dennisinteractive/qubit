@@ -1,0 +1,11 @@
+
+qubit_lite.qubit_lite_settings_form:
+  path: '/admin/config/qubit_lite/settings'
+  defaults:
+    _form: '\Drupal\qubit_lite\Form\QubitLiteSettingsForm'
+    _title: 'Qubit Lite Settings'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

@@ -1,14 +1,14 @@
 {
-  "name": "dennis/qubit",
+  "name": "dennis/qubit_lite",
   "type": "drupal-module",
-  "description": "Qubit tracking integration",
+  "description": "A small iframe version of the Qubit tracking integration",
   "keywords": ["Drupal", "Qubit"],
   "license": "GPL-2.0+",
-  "homepage": "https://github.com/dennisinteractive/qubit",
+  "homepage": "https://github.com/dennisinteractive/qubit_lite",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://github.com/dennisinteractive/qubit/issues",
-    "source": "https://github.com/dennisinteractive/qubit"
+    "issues": "https://github.com/dennisinteractive/qubit_lite/issues",
+    "source": "https://github.com/dennisinteractive/qubit_lite"
   },
   "require": { }
 }

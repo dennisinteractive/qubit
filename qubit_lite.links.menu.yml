@@ -1,0 +1,7 @@
+qubit_lite.qubit_lite_settings_form:
+  title: 'Qubit Lite Settings'
+  route_name: qubit_lite.qubit_lite_settings_form
+  description: 'Settings for Qubit Lite'
+  parent: system.admin_config_system
+  weight: 99
+

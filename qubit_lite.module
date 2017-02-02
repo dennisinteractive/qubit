@@ -16,7 +16,7 @@ function qubit_lite_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.qubit_lite':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Qubit tracking integration') . '</p>';
+      $output .= '<p>' . t('A small iframe version of the Qubit tracking integration') . '</p>';
       return $output;
 
     default:
@@ -49,7 +49,7 @@ function qubit_lite_page_attachments(array &$attachments) {
       ],
     ],
     // A key, to make it possible to recognize this HTML element when altering.
-    'qubit_opentag',
+    'qubit_lite_opentag',
   ];
 
 }

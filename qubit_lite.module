@@ -32,8 +32,6 @@ function qubit_lite_page_attachments(array &$attachments) {
   // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page
 
   $config = \Drupal::config('qubit_lite.settings');
-  $customer_id = $config->get('customer_id');
-  $site_id = $config->get('site_id');
 
   $attachments['#attached']['html_head'][] = [
     // The data.
@@ -43,7 +41,9 @@ function qubit_lite_page_attachments(array &$attachments) {
       '#tag' => 'script',
       // Set attributes like src to load a file.
       '#attributes' => [
-        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-' . $customer_id . '-' . $site_id . '.js',
+        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-'
+          . $config->get('customer_id')
+          . '-' . $config->get('site_id') . '.js',
         'defer' => TRUE,
         'async' => TRUE,
       ],

@@ -39,6 +39,12 @@ class QubitLiteSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('customer_id'),
     );
 
+    $form['site_id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Site Id'),
+      '#default_value' => $config->get('site_id'),
+    );
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -55,6 +61,7 @@ class QubitLiteSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('qubit_lite.settings')
       ->set('customer_id', $form_state->getValue('customer_id'))
+      ->set('site_id', $form_state->getValue('site_id'))
       ->save();
 
     parent::submitForm($form, $form_state);

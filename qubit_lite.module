@@ -24,32 +24,78 @@ function qubit_lite_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
+ * Implements hook_library_info_build().
+ *
+ * @return array
+ */
+function qubit_lite_library_info_build() {
+
+  $libraries = [];
+  // Add a library whose information changes depending on certain conditions.
+  $libraries['qubit_lite.opentag'] = [
+    'version: 1.x',
+    'js' => [],
+  ];
+
+  return $libraries;
+}
+
+/**
+ * Implements hook_library_info_alter().
+ *
+ * @param $libraries
+ * @param $extension
+ */
+function qubit_lite_library_info_alter(&$libraries, $extension) {
+  // Register library paths.
+  if ('qubit_lite' == $extension) {
+    $config = \Drupal::config('qubit_lite.settings');
+    $libraries['opentag']['header'] = TRUE;
+    $libraries['opentag']['js'] = [
+      '//d3c3cq33003psk.cloudfront.net/opentag-' . $config->get('customer_id')
+      . '-' . $config->get('site_id') . '.js' => [
+        'type' => 'external',
+        'attributes' => [
+          'defer' => TRUE,
+          'async' => TRUE,
+        ],
+      ],
+    ];
+  }
+}
+
+/**
  * Implements hook_page_attachments().
  */
 function qubit_lite_page_attachments(array &$attachments) {
+
+  //$variables['page']['#cache']['contexts'][] = 'url.path';
+  // @todo cache per domain
+  $attachments['#attached']['library'][] = 'qubit_lite/opentag';
+
   // Add to every page.
   // Not as a library as we need to change the name of the js for each domain file.
   // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page
 
-  $config = \Drupal::config('qubit_lite.settings');
-
-  $attachments['#attached']['html_head'][] = [
-    // The data.
-    [
-      '#type' => 'html_tag',
-      // The HTML tag to add, in this case a  tag.
-      '#tag' => 'script',
-      // Set attributes like src to load a file.
-      '#attributes' => [
-        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-'
-          . $config->get('customer_id')
-          . '-' . $config->get('site_id') . '.js',
-        'defer' => TRUE,
-        'async' => TRUE,
-      ],
-    ],
-    // A key, to make it possible to recognize this HTML element when altering.
-    'qubit_lite_opentag',
-  ];
+//  $config = \Drupal::config('qubit_lite.settings');
+//
+//  $attachments['#attached']['html_head'][] = [
+//    // The data.
+//    [
+//      '#type' => 'html_tag',
+//      // The HTML tag to add, in this case a  tag.
+//      '#tag' => 'script',
+//      // Set attributes like src to load a file.
+//      '#attributes' => [
+//        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-'
+//          . $config->get('customer_id')
+//          . '-' . $config->get('site_id') . '.js',
+//        'defer' => TRUE,
+//        'async' => TRUE,
+//      ],
+//    ],
+//    // A key, to make it possible to recognize this HTML element when altering.
+//    'qubit_lite_opentag',
+//  ];
 
 }

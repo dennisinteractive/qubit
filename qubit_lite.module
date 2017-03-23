@@ -27,33 +27,52 @@ function qubit_lite_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_page_attachments().
  */
 function qubit_lite_page_attachments(array &$attachments) {
-  // Add to every page.
-  // Not as a library as we need to change the name of the js for each domain file.
-  // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page
+  // Not as a library as we need to have a different library for each domain.
+  // see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#entire-page.
 
-  // Not on admin pages.
-  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
-    return;
+  /** @var Drupal\qubit_lite\Controller\QubitTrackingController $qubit */
+  $qubit = \Drupal::service('qubit_lite.tracker');
+  if ($qubit->onCurrentPage() && $qubit->getScriptUrl()) {
+    $attachments['#attached']['html_head'][] = [
+      // The data.
+      [
+        '#type' => 'html_tag',
+        // The HTML tag to add, in this case a  tag.
+        '#tag' => 'script',
+        // Set attributes like src to load a file.
+        '#attributes' => [
+          'src' => $qubit->getScriptUrl(),
+          'defer' => TRUE,
+          'async' => TRUE,
+        ],
+      ],
+      // A key, to make it possible to recognize this HTML element when altering.
+      'qubit_lite_opentag',
+    ];
   }
 
-  $config = \Drupal::config('qubit_lite.settings');
-  $attachments['#attached']['html_head'][] = [
-    // The data.
-    [
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function qubit_lite_page_bottom(array &$page_bottom) {
+
+  // We need to add the tracking iframe to all pages.
+  $qubit = \Drupal::service('qubit_lite.tracker');
+
+  if ($qubit->onCurrentPage()) {
+    $page_bottom['qubit_lite'] = [
       '#type' => 'html_tag',
       // The HTML tag to add, in this case a  tag.
-      '#tag' => 'script',
+      '#tag' => 'iframe',
       // Set attributes like src to load a file.
       '#attributes' => [
-        'src' => '//d3c3cq33003psk.cloudfront.net/opentag-'
-          . $config->get('customer_id')
-          . '-' . $config->get('site_id') . '.js',
-        'defer' => TRUE,
-        'async' => TRUE,
+        'src' => '/' . $qubit->getIframeUrl(),
+        'weight' => '1',
+        'height' => '1',
+        'style' => 'position:absolute; bottom:0px; left:0px; visibility:hidden',
       ],
-    ],
-    // A key, to make it possible to recognize this HTML element when altering.
-    'qubit_lite_opentag',
-  ];
-
+    ];
+  }
 }

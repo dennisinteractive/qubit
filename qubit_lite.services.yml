@@ -1,0 +1,5 @@
+services:
+  qubit_lite.tracker:
+    class: Drupal\qubit_lite\Controller\QubitTrackingController
+    calls:
+      - [setRouterContext, ['@router.admin_context']]

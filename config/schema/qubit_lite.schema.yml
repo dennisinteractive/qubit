@@ -1,0 +1,7 @@
+qubit_lite.settings:
+  type: config_object
+  mapping:
+    customer_id:
+      type: string
+    site_id:
+      type: string

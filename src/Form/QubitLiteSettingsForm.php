@@ -45,6 +45,26 @@ class QubitLiteSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('site_id'),
     );
 
+    $form['biscotti'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->t('Biscotti settings'),
+    );
+
+    $form['biscotti']['biscotti_url'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Biscotti url'),
+      '#default_value' => $config->get('biscotti_url'),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
+
+    $form['biscotti']['safe_domains'] = array(
+      '#type' => 'textarea',
+      '#title' => $this->t('Safe domains'),
+      '#description' => $this->t('Add one domain per line'),
+    );
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -62,6 +82,7 @@ class QubitLiteSettingsForm extends ConfigFormBase {
     $this->config('qubit_lite.settings')
       ->set('customer_id', $form_state->getValue('customer_id'))
       ->set('site_id', $form_state->getValue('site_id'))
+      ->set('biscotti_url', $form_state->getValue('biscotti_url'))
       ->save();
 
     parent::submitForm($form, $form_state);

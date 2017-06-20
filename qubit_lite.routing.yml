@@ -11,3 +11,7 @@ qubit_lite.cross_domain_tracking:
   path: '/assets/includes/qubit/opentag.html'
   defaults:
     _controller: '\Drupal\qubit_lite\Controller\QubitTrackingController:build'
+qubit_lite.biscotti:
+  path: '/assets/includes/qubit/biscotti.html'
+  defaults:
+    _controller: '\Drupal\qubit_lite\Controller\QubitTrackingController:loadBiscotti'

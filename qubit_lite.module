@@ -74,5 +74,19 @@ function qubit_lite_page_bottom(array &$page_bottom) {
         'style' => 'position:absolute; bottom:0px; left:0px; visibility:hidden',
       ],
     ];
+    if ($qubit->loadBiscotti()) {
+      $page_bottom['qubit_lite_biscotti'] = [
+        '#type' => 'html_tag',
+        // The HTML tag to add, in this case a  tag.
+        '#tag' => 'iframe',
+        // Set attributes like src to load a file.
+        '#attributes' => [
+          'src' => '/' . $qubit->getBiscottiIframeUrl(),
+          'weight' => '1',
+          'height' => '1',
+          'style' => 'position:absolute; bottom:0px; left:0px; visibility:hidden',
+        ],
+      ];
+    }
   }
 }

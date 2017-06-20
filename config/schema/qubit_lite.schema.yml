@@ -7,3 +7,5 @@ qubit_lite.settings:
       type: string
     biscotti_url:
       type: string
+    biscotti_safe_domains:
+      type: text

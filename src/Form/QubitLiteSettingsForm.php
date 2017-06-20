@@ -59,9 +59,10 @@ class QubitLiteSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     );
 
-    $form['biscotti']['safe_domains'] = array(
+    $form['biscotti']['biscotti_safe_domains'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('Safe domains'),
+      '#default_value' => $config->get('biscotti_safe_domains'),
       '#description' => $this->t('Add one domain per line'),
     );
 
@@ -83,6 +84,7 @@ class QubitLiteSettingsForm extends ConfigFormBase {
       ->set('customer_id', $form_state->getValue('customer_id'))
       ->set('site_id', $form_state->getValue('site_id'))
       ->set('biscotti_url', $form_state->getValue('biscotti_url'))
+      ->set('biscotti_safe_domains', $form_state->getValue('biscotti_safe_domains'))
       ->save();
 
     parent::submitForm($form, $form_state);

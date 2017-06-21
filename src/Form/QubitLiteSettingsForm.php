@@ -64,6 +64,7 @@ class QubitLiteSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Safe domains'),
       '#default_value' => $config->get('biscotti_safe_domains'),
       '#description' => $this->t('Add one domain per line'),
+      '#required' => TRUE,
     );
 
     return parent::buildForm($form, $form_state);

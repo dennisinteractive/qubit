@@ -108,17 +108,30 @@ class QubitTrackingController extends ControllerBase {
 
     // Return false if any of the settings are empty.
     if (empty($biscotti_url) || empty($biscotti_safe_domains)) {
-      return FALSE;
-    }
+      $content = "
+        <!doctype html>
+        <html>
+        <head>
+            <h1>Qubit settings not properly configured</h1>
+        </head>
+        </html>
+      ";
 
-    $domains = explode(PHP_EOL, $biscotti_safe_domains);
-    $new_domains = array();
-    foreach ($domains as $domain) {
-      $trim = trim($domain);
-      $new_domains[] = "'" . $trim . "'";
+      // Add required non-indexing headers.
+      $headers = [
+        'Content-Type' => 'text/html',
+        'X-Robots-Tag' => 'noindex, nofollow, noarchive',
+      ];
     }
+    else {
+      $domains = explode(PHP_EOL, $biscotti_safe_domains);
+      $new_domains = array();
+      foreach ($domains as $domain) {
+        $trim = trim($domain);
+        $new_domains[] = "'" . $trim . "'";
+      }
 
-    $content = "
+      $content = "
       <!doctype html>
       <html>
       <head>
@@ -130,11 +143,12 @@ class QubitTrackingController extends ControllerBase {
       </html>
     ";
 
-    // Add required non-indexing headers.
-    $headers = [
-      'Content-Type' => 'text/html',
-      'X-Robots-Tag' => 'noindex, nofollow, noarchive',
-    ];
+      // Add required non-indexing headers.
+      $headers = [
+        'Content-Type' => 'text/html',
+        'X-Robots-Tag' => 'noindex, nofollow, noarchive',
+      ];
+    }
 
     return new Response($content, Response::HTTP_OK, $headers);
   }

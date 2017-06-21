@@ -98,16 +98,6 @@ class QubitTrackingController extends ControllerBase {
   }
 
   /**
-   * Helper to get the biscotti iframe markup.
-   *
-   * @return string
-   *   The rendered markup for the iframe.
-   */
-  public function getBiscottiIframeUrl() {
-    return Url::fromRoute('qubit_lite.biscotti')->getInternalPath();
-  }
-
-  /**
    * Load biscotti script if the settings are not empty.
    * @return bool|Response
    */

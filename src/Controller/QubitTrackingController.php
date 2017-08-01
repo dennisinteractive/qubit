@@ -97,4 +97,60 @@ class QubitTrackingController extends ControllerBase {
     return !$this->routerAdmin->isAdminRoute();
   }
 
+  /**
+   * Load biscotti script if the settings are not empty.
+   * @return bool|Response
+   */
+  public function loadBiscotti() {
+    $config = $this->config('qubit_lite.settings');
+    $biscotti_url = $config->get('biscotti_url');
+    $biscotti_safe_domains = $config->get('biscotti_safe_domains');
+
+    // Return false if any of the settings are empty.
+    if (empty($biscotti_url) || empty($biscotti_safe_domains)) {
+      $content = "
+        <!doctype html>
+        <html>
+        <head>
+            <h1>Qubit settings not properly configured</h1>
+        </head>
+        </html>
+      ";
+
+      // Add required non-indexing headers.
+      $headers = [
+        'Content-Type' => 'text/html',
+        'X-Robots-Tag' => 'noindex, nofollow, noarchive',
+      ];
+    }
+    else {
+      $domains = explode(PHP_EOL, $biscotti_safe_domains);
+      $new_domains = array();
+      foreach ($domains as $domain) {
+        $trim = trim($domain);
+        $new_domains[] = "'" . $trim . "'";
+      }
+
+      $content = "
+      <!doctype html>
+      <html>
+      <head>
+        <script>
+          window.safeDomains = [" . implode(',', $new_domains) . "]
+        </script>
+        <script src='" . $biscotti_url . "'></script>
+      </head>
+      </html>
+    ";
+
+      // Add required non-indexing headers.
+      $headers = [
+        'Content-Type' => 'text/html',
+        'X-Robots-Tag' => 'noindex, nofollow, noarchive',
+      ];
+    }
+
+    return new Response($content, Response::HTTP_OK, $headers);
+  }
+
 }

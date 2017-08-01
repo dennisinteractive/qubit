@@ -52,27 +52,3 @@ function qubit_lite_page_attachments(array &$attachments) {
   }
 
 }
-
-/**
- * Implements hook_page_bottom().
- */
-function qubit_lite_page_bottom(array &$page_bottom) {
-
-  // We need to add the tracking iframe to all pages.
-  $qubit = \Drupal::service('qubit_lite.tracker');
-
-  if ($qubit->onCurrentPage()) {
-    $page_bottom['qubit_lite'] = [
-      '#type' => 'html_tag',
-      // The HTML tag to add, in this case a  tag.
-      '#tag' => 'iframe',
-      // Set attributes like src to load a file.
-      '#attributes' => [
-        'src' => '/' . $qubit->getIframeUrl(),
-        'weight' => '1',
-        'height' => '1',
-        'style' => 'position:absolute; bottom:0px; left:0px; visibility:hidden',
-      ],
-    ];
-  }
-}

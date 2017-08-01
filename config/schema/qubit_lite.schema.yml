@@ -5,3 +5,7 @@ qubit_lite.settings:
       type: string
     site_id:
       type: string
+    biscotti_url:
+      type: string
+    biscotti_safe_domains:
+      type: text

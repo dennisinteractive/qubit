@@ -1,5 +1,5 @@
 name: Qubit Lite
 type: module
 description: A small iframe version of the Qubit tracking integration
-core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
 package: Statistics

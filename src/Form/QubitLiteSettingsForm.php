@@ -33,39 +33,39 @@ class QubitLiteSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('qubit_lite.settings');
-    $form['customer_id'] = array(
+    $form['customer_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Customer Id'),
       '#default_value' => $config->get('customer_id'),
-    );
+    ];
 
-    $form['site_id'] = array(
+    $form['site_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Site Id'),
       '#default_value' => $config->get('site_id'),
-    );
+    ];
 
-    $form['biscotti'] = array(
+    $form['biscotti'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Biscotti settings'),
-    );
+    ];
 
-    $form['biscotti']['biscotti_url'] = array(
+    $form['biscotti']['biscotti_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Biscotti url'),
       '#default_value' => $config->get('biscotti_url'),
       '#size' => 60,
       '#maxlength' => 128,
       '#required' => TRUE,
-    );
+    ];
 
-    $form['biscotti']['biscotti_safe_domains'] = array(
+    $form['biscotti']['biscotti_safe_domains'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Safe domains'),
       '#default_value' => $config->get('biscotti_safe_domains'),
       '#description' => $this->t('Add one domain per line'),
       '#required' => TRUE,
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
   }

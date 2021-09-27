@@ -46,7 +46,7 @@ class QubitTrackingController extends ControllerBase {
   /**
    * A router callback to generate the tracking page.
    *
-   * @return Response
+   * @return \Drupal\Core\Cache\CacheableResponse\Response
    *   A Symfony response object representing the tracking page.
    */
   public function build() {
@@ -99,7 +99,9 @@ class QubitTrackingController extends ControllerBase {
 
   /**
    * Load biscotti script if the settings are not empty.
+   *
    * @return bool|Response
+   *   Returns a new response.
    */
   public function loadBiscotti() {
     $config = $this->config('qubit_lite.settings');
@@ -125,7 +127,7 @@ class QubitTrackingController extends ControllerBase {
     }
     else {
       $domains = explode(PHP_EOL, $biscotti_safe_domains);
-      $new_domains = array();
+      $new_domains = [];
       foreach ($domains as $domain) {
         $trim = trim($domain);
         $new_domains[] = "'" . $trim . "'";
